@@ -6,25 +6,25 @@
       <div class="option-container">
         <h4> 1. Choose a gender</h4>
         <div class="option-btns">
-          <button class="option op-left" :class="options.gender === 'Boy' && 'option-active'">Boy</button>
-          <button class="option" :class="options.gender === 'Unisex' && 'option-active'">Unisex</button>
-          <button class="option op-right" :class="options.gender === 'Girl' && 'option-active'">Girl</button>
+          <button @click="options.gender = Gender.BOY" class="option op-left" :class="options.gender === Gender.BOY && 'option-active'">Boy</button>
+          <button @click="options.gender = Gender.UNISEX" class="option" :class="options.gender === Gender.UNISEX && 'option-active'">Unisex</button>
+          <button @click="options.gender = Gender.GIRL" class="option op-right" :class="options.gender === Gender.GIRL && 'option-active'">Girl</button>
         </div>
       </div>
       <div class="option-container">
         <h4> 2. Choose the name's popularity</h4>
         <div class="option-btns">
-          <button class="option op-left" :class="options.popularity === 'Trendy' && 'option-active'">Trendy</button>
-          <button class="option op-right" :class="options.popularity === 'Unique' && 'option-active'">Unique
+          <button  @click="options.popularity = Popularity.TRENDY" class="option op-left" :class="options.popularity === Popularity.TRENDY && 'option-active'">Trendy</button>
+          <button @click="options.popularity = Popularity.UNIQUE" class="option op-right" :class="options.popularity === Popularity.UNIQUE && 'option-active'">Unique
           </button>
         </div>
       </div>
       <div class="option-container">
-        <h4> 2. Choose the name's length</h4>
+        <h4> 3. Choose the name's length</h4>
         <div class="option-btns">
-          <button class="option op-left" :class="options.length === 'Long' && 'option-active'">Long</button>
-          <button class="option" :class="options.length === 'All' && 'option-active'">All</button>
-          <button class="option op-right" :class="options.length === 'Short' && 'option-active'">Short</button>
+          <button @click="options.length = Length.LONG" class="option op-left" :class="options.length === Length.LONG && 'option-active'">Long</button>
+          <button @click="options.length = Length.ALL" class="option" :class="options.length === Length.ALL && 'option-active'">All</button>
+          <button @click="options.length = Length.SHORT" class="option op-right" :class="options.length === Length.SHORT && 'option-active'">Short</button>
         </div>
       </div>
     </div>
@@ -32,11 +32,50 @@
 </template>
 
 
-<script setup>
-const options = reactive({
-  gender: "Girl",
-  popularity: "Trendy",
-  length: "Short",
+<script setup lang="ts">
+
+enum Gender {
+  GIRL = 'Girl',
+  BOY = 'Boy',
+  UNISEX = 'Unisex',
+}
+
+enum Popularity {
+  TRENDY = 'Trendy',
+  UNIQUE = 'Unique',
+}
+
+enum Length {
+  LONG = 'Long',
+  ALL = 'All',
+  SHORT = 'Short',
+}
+
+
+interface OptionsState {
+  gender: Gender;
+  popularity: Popularity;
+  length: Length;
+}
+
+
+// testing purpose --------------------------/ 
+// const obj: OptionsState = {
+//   gender: Gender.GIRL,
+//   popularity: Popularity.TRENDY,
+//   length: Length.SHORT,
+// }
+
+// const options: OptionsState = reactive({
+//   gender: Gender.GIRL,
+//   popularity: Popularity.TRENDY,
+//   length: Length.SHORT,
+// })
+
+const options = reactive<OptionsState>({
+  gender: Gender.GIRL,
+  popularity: Popularity.TRENDY,
+  length: Length.SHORT,
 })
 </script>
 
