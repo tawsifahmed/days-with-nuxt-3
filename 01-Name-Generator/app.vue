@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1>Name Generator</h1>
-    <p>Choose options and click the "Get Bames" button underneath</p>
+    <p>Choose options and click the <span><i>"Get Names"</i></span> button underneath</p>
     <div class="options-container">
       <div class="option-container">
         <h4> 1. Choose a gender</h4>
@@ -27,37 +27,27 @@
           <button @click="options.length = Length.SHORT" class="option op-right" :class="options.length === Length.SHORT && 'option-active'">Short</button>
         </div>
       </div>
+      <button @click="computeSelectedNames" class="primary"> Get Names</button>
+    </div>
+    <div class="name-cards-container">
+      <div v-for="name in selectedNames" :key="name" class="name-card">
+        <p>
+          {{name}}
+        </p>
+      </div>
     </div>
   </div>
 </template>
 
 
 <script setup lang="ts">
-
-enum Gender {
-  GIRL = 'Girl',
-  BOY = 'Boy',
-  UNISEX = 'Unisex',
-}
-
-enum Popularity {
-  TRENDY = 'Trendy',
-  UNIQUE = 'Unique',
-}
-
-enum Length {
-  LONG = 'Long',
-  ALL = 'All',
-  SHORT = 'Short',
-}
-
+import {Gender, Popularity, Length, names} from '@/data'
 
 interface OptionsState {
   gender: Gender;
   popularity: Popularity;
   length: Length;
 }
-
 
 // testing purpose --------------------------/ 
 // const obj: OptionsState = {
@@ -77,6 +67,19 @@ const options = reactive<OptionsState>({
   popularity: Popularity.TRENDY,
   length: Length.SHORT,
 })
+
+const computeSelectedNames = () => {
+ const filteredNames = names
+ .filter((name) => name.gender === options.gender)
+ .filter((name) => name.popularity === options.popularity)
+ .filter((name) => {
+   if(options.length === Length.ALL) return true
+   else return name.length === options.length
+ })
+ selectedNames.value = filteredNames.map((name) => name.name)
+}
+
+const selectedNames = ref<string[]>([])
 </script>
 
 
@@ -129,5 +132,33 @@ const options = reactive<OptionsState>({
 
 .option-container .op-right {
   border-radius: 0 1rem 1rem 0;
+}
+
+.primary{
+  background-color: #015591;
+  color: white;
+  cursor: pointer;
+  border-radius: 5rem;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  margin-top: 3px;
+  margin-bottom: 5px;
+}
+
+
+.name-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 2rem;
+  gap: 10px;
+}
+
+.name-cards-container .name-card{
+  background-color: crimson;
+  color: white;
+  width: 10rem;
+  border-radius: 0.7rem 0 0.7rem 0;
 }
 </style>
