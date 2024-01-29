@@ -30,10 +30,10 @@
       <button @click="computeSelectedNames" class="primary"> Get Names</button>
     </div>
     <div class="name-cards-container">
-      <div v-for="name in selectedNames" :key="name" class="name-card">
+      <div v-for="name, index in selectedNames" :key="name" class="name-card">
         <h4>{{name}}</h4>
         
-        <div @click="closeNameCard(name)" style="cursor: pointer;">
+        <div @click="closeNameCard( index)" style="cursor: pointer;">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
           </svg>
@@ -88,8 +88,8 @@ const computeSelectedNames = () => {
 
 const selectedNames = ref<string[]>([])
 
-const closeNameCard = (name: string) => {
-  selectedNames.value = selectedNames.value.filter((n) => n !== name)
+const closeNameCard = (index: number) => {
+  selectedNames.value.splice(index, 1)
 }
 </script>
 
