@@ -12,7 +12,7 @@
       <button @click="computeSelectedNames" class="primary"> Get Names</button>
     </div>
     <div class="name-cards-container">
-      <div v-for="name, index in selectedNames" :key="name" class="name-card">
+      <!-- <div v-for="name, index in selectedNames" :key="name" class="name-card">
         <h4>{{name}}</h4>
         
         <div @click="closeNameCard( index)" style="cursor: pointer;">
@@ -20,7 +20,8 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
           </svg>
         </div>
-      </div>
+      </div> -->
+      <CardName v-for="name, index in selectedNames" :key="name" :name="name" :index="index" @remove="() => closeNameCard(index)"/>
     </div>
   </div>
 </template>
@@ -87,7 +88,9 @@ const optionsArray = [
 ]
 
 const closeNameCard = (index: number) => {
-  selectedNames.value.splice(index, 1)
+  const filteredNames = [...selectedNames.value]
+  filteredNames.splice(index, 1)
+  selectedNames.value = filteredNames
 }
 </script>
 
@@ -136,25 +139,4 @@ const closeNameCard = (index: number) => {
   gap: 10px;
 }
 
-.name-cards-container .name-card{
-  background-color: crimson;
-  color: white;
-  width: 10rem;
-  border-radius: 0.7rem 0 0.7rem 0;
-  position: relative;
-}
-
-.name-cards-container .name-card svg {
-  position: absolute;
-    top: 0%;
-    background: black;
-    right: -21px;
-    transform: translate(-50%, -50%);
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-align: center;
-    margin: 0;
-    width: 24px;
-    border-radius: 50%;
-}
 </style>
