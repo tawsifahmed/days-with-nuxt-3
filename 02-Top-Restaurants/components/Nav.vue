@@ -23,14 +23,14 @@
         "
       >
        <div>
-          <a class="flex items-center" href="#">
+          <Nuxtlink class="flex items-center cursor-pointer" to="/">
             <img
               class="h-8 w-8 inline-block mr-2"
               src="@/assets/images/logo.png"
               alt="Workflow"
             />
             <span class="font-semibold text-xl tracking-tight">Restaurants</span>
-          </a>
+          </Nuxtlink>
         </div>
        
          <svg
