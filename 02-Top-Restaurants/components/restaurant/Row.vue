@@ -1,9 +1,19 @@
 <template>
     <div class="row">
-      <h4 class="header rank">1</h4>
-      <a href="/" class="header link">McDonalds</a>
+      <h4 class="header rank">{{rank}}</h4>
+      <a href="/" class="header link">{{name}}</a>
     </div>
-  </template>
+</template>
+
+<script setup lang="ts">
+
+interface RowProps {
+    rank: number;
+    name: string
+}
+
+const props = defineProps<RowProps>()
+</script>
   
   <style scoped>
   .row {

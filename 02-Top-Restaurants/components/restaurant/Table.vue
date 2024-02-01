@@ -1,12 +1,16 @@
+
+import type { RestaurantRow } from '#build/components';
+
+import type { RestaurantRow } from '#build/components';
 <template>
     <div class="table w-full">
       <h1>TOP 50: THE RANKING</h1>
       <div class="grid grid-cols-12 gap-4 w-full">
         <div class="table-col col-span-12 md:col-span-6">
-            <RestaurantRow v-for="restaurant in restaurantOrganized.first" :key="restaurant.id" />
+            <RestaurantRow v-for="restaurant in restaurantOrganized.first" :key="restaurant.id" :name="restaurant.name" :rank="restaurant.rank"/>
         </div>
         <div class="table-col col-span-12 md:col-span-6">
-            <RestaurantRow v-for="restaurant in restaurantOrganized.second" :key="restaurant.id" />
+            <RestaurantRow v-for="restaurant in restaurantOrganized.second" :key="restaurant.id" :name="restaurant.name" :rank="restaurant.rank"/>
         </div>
       </div>
     </div>
