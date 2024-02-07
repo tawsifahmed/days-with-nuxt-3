@@ -1,7 +1,7 @@
 <template>
-    <div class="row">
+    <div class="row" :class="index % 2 !== 0 ? 'bg-white' : 'bg-sky-100' ">
       <h4 class="header rank">{{rank}}</h4>
-      <a href="/" class="header link">{{name}}</a>
+      <a :href="`/restaurants/${name}`" class="header link">{{name}}</a>
     </div>
 </template>
 
@@ -9,7 +9,8 @@
 
 interface RowProps {
     rank: number;
-    name: string
+    name: string,
+    index: number
 }
 
 const props = defineProps<RowProps>()
